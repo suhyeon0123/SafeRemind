@@ -16,8 +16,7 @@
 <img width="2039" height="884" alt="overview-1" src="https://github.com/user-attachments/assets/74d3a12a-283a-44ff-ae70-37bca9e6c315" />
 
 
-**SafeRemind** addresses a critical safety vulnerability in Large Reasoning Models (LRMs): 
---> while these models excel at complex reasoning tasks through their thinking steps, these same thinking processes can be exploited for jailbreaking attacks.
+**SafeRemind** addresses a critical safety vulnerability in Large Reasoning Models (LRMs): while these models excel at complex reasoning tasks through their thinking steps, these same thinking processes can be exploited for jailbreaking attacks.
 
 ### The Problem
 
