@@ -1,4 +1,4 @@
-# 🛡️SafeRemind: An Entropy-based Safety Reminder for LRMs
+# 🛡️SafeRemind: How Does the Thinking Step Influence Model Safety? An Entropy-based Safety Reminder for LRMs
 
 <p align="center">
   <a href="https://arxiv.org/abs/2601.03662">
