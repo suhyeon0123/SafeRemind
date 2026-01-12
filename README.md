@@ -1,0 +1,202 @@
+# SafeRemind: An Entropy-based Safety Reminder for LRMs
+
+<p align="center">
+  <a href="https://arxiv.org/abs/2601.03662">
+    <img src="https://img.shields.io/badge/arXiv-2601.03662-b31b1b" alt="arXiv">
+  </a>
+</p>
+
+<div align="center">
+    <a href="https://arxiv.org/abs/2601.03662"><b>📖 </b>Paper Link</a>
+</div><br>
+
+> **SafeRemind** is a novel **decoding-time defense technique** that intervenes in the thinking process of Large Reasoning Models (LRMs) to reduce jailbreaking risks while preserving model intelligence.
+
+## 🧪 About SafeRemind
+
+**SafeRemind** addresses a critical trade-off in Large Reasoning Models (LRMs) like **DeepSeek-R1** and **OpenAI o1**: while these models excel at complex reasoning tasks through their thinking steps, these same thinking processes can be exploited for jailbreaking attacks.
+
+### The Problem
+
+- **The Risk:** The thinking process can become a pathway for jailbreaking attacks, allowing harmful information to be concretized
+- **The Dilemma:** Removing thinking steps eliminates the model's superior reasoning capabilities
+- **Existing Limits:** Current defense methods require expensive fine-tuning or ignore the unique mechanisms of reasoning models, resulting in low defense rates
+
+### Our Solution
+
+**SafeRemind** leverages two key insights from LRM behavior:
+
+1. **Entropy Drop:** When models become confident in a specific thought flow, entropy drops sharply, creating a "decision-locking" state—a critical moment when dangerous thoughts can solidify
+2. **Self-Correction:** Models can detect harmfulness and redirect to safer responses when prompted with reminding phrases like *"Wait, let me think again"*
+
+### How It Works
+
+**SafeRemind** intervenes in real-time during the **decoding phase**:
+
+1. **Entropy-based Trigger:** Detects when the model enters a decision-locking state during thinking
+2. **Safety Reminder Injection:** Immediately injects safety-reminding phrases like *"Wait, is this request potentially harmful?"*
+3. **Self-Reevaluation:** The model re-evaluates its thinking process and redirects to safe responses if the path was harmful
+
+> **Key Point:** This is a **training-free** approach—no parameter updates or fine-tuning required—while fully preserving the model's reasoning capabilities!
+
+## 📊 Experimental Results
+
+We evaluated SafeRemind on various LRMs including DeepSeek-R1 (7B, 8B, 32B) and achieved state-of-the-art defense performance.
+
+### Safety Performance 🚀
+
+Using **LlamaGuard3 Score**, SafeRemind achieved **up to 45.5%p improvement** in safety compared to baseline models.
+
+| Method | JailBreakBench | HarmBench | AdvBench | XSTest-Harmful |
+|--------|----------------|-----------|----------|----------------|
+| Base | 53.0 | 45.0 | 51.9 | 75.0 |
+| SafeChain | 74.0 | 70.0 | 83.3 | 82.5 |
+| SafeInfer | 66.0 | 62.5 | 63.7 | 82.5 |
+| **SafeRemind (Ours)** | **90.0** | **90.5** | **93.5** | **96.5** |
+
+### Utility Preservation ✨
+
+Unlike typical security enhancements that degrade model intelligence, SafeRemind preserves reasoning capabilities:
+
+- **MATH-500 (Math Reasoning):** Minimal performance drop (Base: 88.4% → Ours: 86.2%)
+- Compared to SafeInfer which dropped to 51.6%, we **fully preserve model intelligence**
+
+## 🛡️ Key Features
+
+- ✅ **Dynamic:** Intervenes only when needed by detecting entropy-based triggers
+- ✅ **Efficient:** Training-free—applies immediately during inference
+- ✅ **Smart:** Preserves high-level reasoning capabilities
+
+## ⚒️ Setup
+
+### Requirements
+
+- Python >= 3.9
+- CUDA-compatible GPU
+- Required packages (see `requirements.txt`)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/SafeRemind.git
+cd SafeRemind
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+## 🚀 Usage
+
+### 1. Generation
+
+Generate responses with or without safety reminders:
+
+```bash
+python main.py \
+    --model-name deepseek-ai/DeepSeek-R1-Distill-Qwen-7B \
+    --dataset-name JBB \
+    --remind entropy \
+    --criteria lt \
+    --threshold 0.5 \
+    --max-num-remind 1
+```
+
+#### Available Reminder Strategies
+
+- `none` - No reminder (baseline)
+- `entropy` - Inject reminder based on entropy threshold (SafeRemind)
+- `system_prompt` - Reminder as system message
+- `begin_prompt` / `end_prompt` - Add reminder at beginning or end of user prompt
+- `begin_think` / `end_think` - Insert before or after thinking step
+- `begin_answer` - Insert before answer generation
+
+#### Parameters
+
+- `--criteria`: Entropy criteria (`gt` for greater than, `lt` for less than)
+- `--threshold`: Entropy threshold value (default: 0.5)
+- `--max-num-remind`: Maximum number of reminders to inject (default: 1)
+- `--adaptive`: Use adaptive reminder generation (SafeChain-style)
+
+### 2. Evaluation
+
+Evaluate generated responses using safety evaluators:
+
+```bash
+python main.py \
+    --model-name deepseek-ai/DeepSeek-R1-Distill-Qwen-7B \
+    --dataset-name JBB \
+    --remind entropy \
+    --criteria lt \
+    --threshold 0.5 \
+    --max-num-remind 1 \
+    --evaluate \
+    --evaluator LG3
+```
+
+#### Available Evaluators
+
+- `RR`: Refusal-based keyword matching
+- `LG3`: LlamaGuard-3 (8B) for safety classification
+- `LG4`: LlamaGuard-4 (12B) for safety classification
+
+## 📚 Supported Datasets
+
+| Dataset | Description |
+|---------|-------------|
+| **JBB** | JailbreakBench (harmful / benign behaviors) |
+| **HarmBench** | Harmful behavior prompts |
+| **AdvBench** | Adversarial instructions |
+| **XSTest** | Over-safety test (safe / unsafe) |
+| **MATH** | Math reasoning (MATH-500) |
+| **GPQA** | Graduate-level QA (Diamond subset) |
+
+## 📁 Output Structure
+
+Generated responses are saved in:
+```
+./response/{dataset}/{model}/{remind_type}.jsonl
+```
+
+Evaluated results are saved in:
+```
+./evaluated/{dataset}/{model}/{evaluator}/{remind_type}.jsonl
+```
+
+## 🏗️ Code Structure
+
+```
+SafeRemind/
+├── main.py              # Main entry point
+├── generation.py        # Generation functions (with/without reminders)
+├── data_loader.py       # Dataset loading utilities
+├── evaluator.py         # Safety evaluation functions
+├── REMIND_PHRASE.py     # Safety reminder phrases and keywords
+├── requirements.txt     # Python dependencies
+└── README.md           # This file
+```
+
+## 📝 Citation
+
+If you use SafeRemind in your research, please cite:
+
+```bibtex
+@misc{kim2026doesthinkingstepinfluence,
+      title={How Does the Thinking Step Influence Model Safety? An Entropy-based Safety Reminder for LRMs}, 
+      author={Su-Hyeon Kim and Hyundong Jin and Yejin Lee and Yo-Sub Han},
+      year={2026},
+      eprint={2601.03662},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2601.03662}, 
+}
+```
+---
+
+## 🔗 Links
+
+- **Paper:** [arXiv:2601.03662](https://arxiv.org/abs/2601.03662)
+
+---
+
+**SafeRemind** represents a new paradigm for enhancing security in LRMs by leveraging their unique thinking step characteristics—dynamic, efficient, and smart.

@@ -1,0 +1,6 @@
+accelerate==1.8.1
+bitsandbytes==0.46.1
+datasets==3.6.0
+torch==2.7.1
+torchvision==0.22.1
+transformers @ git+https://github.com/huggingface/transformers@63cd4c76f3a068ac36c37453be156e019c55c1b7
