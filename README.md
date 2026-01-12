@@ -1,4 +1,4 @@
-# 🛡️SafeRemind: Entropy-based Safety Reminder for LRMs
+# 🛡️SafeRemind: An Entropy-based Safety Reminder for LRMs
 
 <p align="center">
   <a href="https://arxiv.org/abs/2601.03662">
