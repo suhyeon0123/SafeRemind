@@ -1,4 +1,4 @@
-# SafeRemind: An Entropy-based Safety Reminder for LRMs
+# 🛡️SafeRemind: Entropy-based Safety Reminder for LRMs
 
 <p align="center">
   <a href="https://arxiv.org/abs/2601.03662">
@@ -10,26 +10,21 @@
     <a href="https://arxiv.org/abs/2601.03662"><b>📖 </b>Paper Link</a>
 </div><br>
 
-> **SafeRemind** is a novel **decoding-time defense technique** that intervenes in the thinking process of Large Reasoning Models (LRMs) to reduce jailbreaking risks while preserving model intelligence.
+> **SafeRemind** is a **decoding-time defense technique** that intervenes in the thinking process of Large Reasoning Models (LRMs) to reduce jailbreaking risks while preserving model intelligence.
 
 ## 🧪 About SafeRemind
+<img width="2039" height="884" alt="overview-1" src="https://github.com/user-attachments/assets/74d3a12a-283a-44ff-ae70-37bca9e6c315" />
 
-**SafeRemind** addresses a critical trade-off in Large Reasoning Models (LRMs) like **DeepSeek-R1** and **OpenAI o1**: while these models excel at complex reasoning tasks through their thinking steps, these same thinking processes can be exploited for jailbreaking attacks.
+
+**SafeRemind** addresses a critical safety vulnerability in Large Reasoning Models (LRMs): 
+--> while these models excel at complex reasoning tasks through their thinking steps, these same thinking processes can be exploited for jailbreaking attacks.
 
 ### The Problem
 
 - **The Risk:** The thinking process can become a pathway for jailbreaking attacks, allowing harmful information to be concretized
-- **The Dilemma:** Removing thinking steps eliminates the model's superior reasoning capabilities
 - **Existing Limits:** Current defense methods require expensive fine-tuning or ignore the unique mechanisms of reasoning models, resulting in low defense rates
 
-### Our Solution
-
-**SafeRemind** leverages two key insights from LRM behavior:
-
-1. **Entropy Drop:** When models become confident in a specific thought flow, entropy drops sharply, creating a "decision-locking" state—a critical moment when dangerous thoughts can solidify
-2. **Self-Correction:** Models can detect harmfulness and redirect to safer responses when prompted with reminding phrases like *"Wait, let me think again"*
-
-### How It Works
+### How SafeRemind Works
 
 **SafeRemind** intervenes in real-time during the **decoding phase**:
 
@@ -40,6 +35,10 @@
 > **Key Point:** This is a **training-free** approach—no parameter updates or fine-tuning required—while fully preserving the model's reasoning capabilities!
 
 ## 📊 Experimental Results
+<!-- <img width="2740" height="1578" alt="intro_graph-1" src="https://github.com/user-attachments/assets/10b9675f-562f-4667-b844-eadddec90e43" /> -->
+<p align="center">
+<img width="50%" alt="intro_graph-1" src="https://github.com/user-attachments/assets/10b9675f-562f-4667-b844-eadddec90e43" />
+</p>
 
 We evaluated SafeRemind on various LRMs including DeepSeek-R1 (7B, 8B, 32B) and achieved state-of-the-art defense performance.
 
@@ -198,5 +197,3 @@ If you use SafeRemind in your research, please cite:
 - **Paper:** [arXiv:2601.03662](https://arxiv.org/abs/2601.03662)
 
 ---
-
-**SafeRemind** represents a new paradigm for enhancing security in LRMs by leveraging their unique thinking step characteristics—dynamic, efficient, and smart.
