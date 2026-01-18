@@ -103,7 +103,24 @@
 
 We evaluated SafeRemind on various LRMs including DeepSeek-R1 (7B, 8B, 32B) and achieved state-of-the-art defense performance.
 
-### Safety Performance 🚀
+## 📉 Preliminary Analysis & Motivation
+
+Our method is grounded in a rigorous analysis of the reasoning dynamics of Large Reasoning Models (LRMs). We conducted preliminary experiments to identify **(1) the mechanism** that triggers safety and **(2) the optimal timing** for intervention.
+
+### 1. The Mechanism: "Cognitive Brake" 
+We analyzed the "thinking steps" ($y_t$) of models by categorizing them into Question (Q), Safe (S), Harmful (H), and Neutral (N).
+
+* **Observation:** "Self-Questioning" segments (e.g., *"Wait, does this violate safety policies?"*) are prevalent in safe responses but **absent in unsafe ones**.
+* **Insight:** These questions act as a **"Cognitive Brake,"** serving as the primary precursor for safety redirection. 
+    > **Hypothesis:** Generating these reminding phrases is the core mechanism that steers the trajectory from a harmful path toward a safe refusal.
+
+### 2. The Timing: "Decision-Locking Point" 
+When should we trigger this "brake"? A common misconception is that safety interventions work best when the model is uncertain (high entropy). **Our data proves the opposite.**
+
+* **Counter-Intuitive Finding:** The model initiates self-correction (Q) when its entropy is at its **lowest**, indicating high confidence.
+* **Conclusion:** A sharp drop in entropy signals a **"Decision-Locking Point"** where the model commits to a reasoning path. **SafeRemind** detects these moments of over-confidence and injects a safety reminder precisely when the model is about to "lock in" to a harmful answer.
+
+## Safety Performance 🚀
 
 Using **LlamaGuard3 Score**, SafeRemind achieved **up to 45.5%p improvement** in safety compared to baseline models.
 
