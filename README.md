@@ -12,8 +12,67 @@
 
 > **SafeRemind** is a **decoding-time defense technique** that intervenes in the thinking process of Large Reasoning Models (LRMs) to reduce jailbreaking risks while preserving model intelligence.
 
+
+<div align="center">
+  
+  <table style="margin: 0px auto;">
+    <thead>
+      <tr>
+        <th style="text-align: left;">Feature</th>
+        <th style="text-align: center;">🚫 As-Is (Existing)</th>
+        <th style="text-align: center;">✨ To-Be (SafeRemind)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: left;"><strong>Intervention</strong></td>
+        <td style="text-align: center;">
+          <strong>Pre-defined / Static</strong><br>
+          <sub>(SFT, RLHF, Input Filters)</sub>
+        </td>
+        <td style="text-align: center;">
+          <strong>Dynamic / Real-time</strong><br>
+          <sub>(Decoding-time Intervention)</sub>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: left;"><strong>Mechanism</strong></td>
+        <td style="text-align: center;">
+          <strong>Blind Refusal</strong><br>
+          <sub>(Blocks prompts blindly)</sub>
+        </td>
+        <td style="text-align: center;">
+          <strong>Entropy-guided Steering</strong><br>
+          <sub>(Detects risk & reminds safety)</sub>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: left;"><strong>Reasoning</strong></td>
+        <td style="text-align: center;">
+          📉 <strong>Degraded</strong><br>
+          <sub>(Safety breaks CoT)</sub>
+        </td>
+        <td style="text-align: center;">
+          📈 <strong>Preserved</strong><br>
+          <sub>(Maintains deep reasoning)</sub>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: left;"><strong>Cost</strong></td>
+        <td style="text-align: center;">
+          💸 <strong>High Training Cost</strong><br>
+          <sub>(Retraining required)</sub>
+        </td>
+        <td style="text-align: center;">
+          ⚡ <strong>Low Inference Cost</strong><br>
+          <sub>(Lightweight decoding)</sub>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  
 ## 🧪 About SafeRemind
-<img width="2039" height="884" alt="overview-1" src="https://github.com/user-attachments/assets/74d3a12a-283a-44ff-ae70-37bca9e6c315" />
 
 
 **SafeRemind** addresses a critical safety vulnerability in Large Reasoning Models (LRMs): while these models excel at complex reasoning tasks through their thinking steps, these same thinking processes can be exploited for jailbreaking attacks.
@@ -22,6 +81,9 @@
 
 - **The Risk:** The thinking process can become a pathway for jailbreaking attacks, allowing harmful information to be concretized
 - **Existing Limits:** Current defense methods require expensive fine-tuning or ignore the unique mechanisms of reasoning models, resulting in low defense rates
+
+<img width="2039" height="884" alt="overview-1" src="https://github.com/user-attachments/assets/74d3a12a-283a-44ff-ae70-37bca9e6c315" />
+
 
 ### How SafeRemind Works
 
