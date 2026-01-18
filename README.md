@@ -95,14 +95,6 @@
 
 > **Key Point:** This is a **training-free** approach—no parameter updates or fine-tuning required—while fully preserving the model's reasoning capabilities!
 
-## 📊 Experimental Results
-<!-- <img width="2740" height="1578" alt="intro_graph-1" src="https://github.com/user-attachments/assets/10b9675f-562f-4667-b844-eadddec90e43" /> -->
-<p align="center">
-<img width="50%" alt="intro_graph-1" src="https://github.com/user-attachments/assets/10b9675f-562f-4667-b844-eadddec90e43" />
-</p>
-
-We evaluated SafeRemind on various LRMs including DeepSeek-R1 (7B, 8B, 32B) and achieved state-of-the-art defense performance.
-
 ## 📉 Preliminary Analysis & Motivation
 
 Our method is grounded in a rigorous analysis of the reasoning dynamics of Large Reasoning Models (LRMs). We conducted preliminary experiments to identify **(1) the mechanism** that triggers safety and **(2) the optimal timing** for intervention.
@@ -120,7 +112,17 @@ When should we trigger this "brake"? A common misconception is that safety inter
 * **Counter-Intuitive Finding:** The model initiates self-correction (Q) when its entropy is at its **lowest**, indicating high confidence.
 * **Conclusion:** A sharp drop in entropy signals a **"Decision-Locking Point"** where the model commits to a reasoning path. **SafeRemind** detects these moments of over-confidence and injects a safety reminder precisely when the model is about to "lock in" to a harmful answer.
 
-## Safety Performance 🚀
+
+## 📊 Experimental Results
+<!-- <img width="2740" height="1578" alt="intro_graph-1" src="https://github.com/user-attachments/assets/10b9675f-562f-4667-b844-eadddec90e43" /> -->
+<p align="center">
+<img width="50%" alt="intro_graph-1" src="https://github.com/user-attachments/assets/10b9675f-562f-4667-b844-eadddec90e43" />
+</p>
+
+We evaluated SafeRemind on various LRMs including DeepSeek-R1 (7B, 8B, 32B) and achieved state-of-the-art defense performance.
+
+
+### Safety Performance 🚀
 
 Using **LlamaGuard3 Score**, SafeRemind achieved **up to 45.5%p improvement** in safety compared to baseline models.
 
